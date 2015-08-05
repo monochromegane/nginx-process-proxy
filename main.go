@@ -1,9 +1,14 @@
 package main
 
-import (
-	"fmt"
-)
+import "flag"
+
+var service string
+
+func init() {
+	flag.StringVar(&service, "service", "", "service name")
+	flag.Parse()
+}
 
 func main() {
-	fmt.Printf("Hello, world\n")
+
 }
