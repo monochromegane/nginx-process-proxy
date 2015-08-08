@@ -16,8 +16,11 @@ func (l lsof) portByPid(pid int) (int, error) {
 	if err != nil {
 		return 0, err
 	}
+	return l.portByOutput(files)
+}
 
-	tcp, err := l.grep(files, "TCP")
+func (l lsof) portByOutput(source []byte) (int, error) {
+	tcp, err := l.grep(source, "TCP")
 	if err != nil {
 		return 0, err
 	}
