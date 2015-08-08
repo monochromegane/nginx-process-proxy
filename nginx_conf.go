@@ -19,7 +19,7 @@ func (n nginxConf) generate(file string) error {
 }
 
 func (n nginxConf) write(content []byte, file string) error {
-	ioutil.WriteFile(file, content, 644)
+	ioutil.WriteFile(file, content, 0644)
 	return nil
 }
 
@@ -63,7 +63,7 @@ upstream {{.Name}} {
 }
 
 server {
-	server_name {{.ServerName}}
+	server_name {{.Server}}
 	location / {
 		proxy_pass http://{{.Name}}
 	}

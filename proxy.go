@@ -13,7 +13,10 @@ func (p proxy) reload() error {
 		return err
 	}
 	conf := nginxConf{s}
-	conf.generate("default.conf")
+	err = conf.generate("default.conf")
+	if err != nil {
+		return err
+	}
 
 	// reload nginx
 	return nil

@@ -1,6 +1,9 @@
 package main
 
-import "flag"
+import (
+	"flag"
+	"fmt"
+)
 
 var service string
 var serverName string
@@ -19,5 +22,8 @@ func main() {
 		service: service,
 		process: process,
 	}
-	proxy.reload()
+	err := proxy.reload()
+	if err != nil {
+		fmt.Printf("%v\n", err)
+	}
 }

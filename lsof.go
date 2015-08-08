@@ -22,8 +22,15 @@ func (l lsof) portByPid(pid int) (int, error) {
 		return 0, err
 	}
 
-	words := strings.Split(tcp[0], " ")
-	hostAndPort := strings.Split(words[9], ":")
+	var words []string
+	line := strings.Split(tcp[0], " ")
+	for _, l := range line {
+		if l == "" {
+			continue
+		}
+		words = append(words, l)
+	}
+	hostAndPort := strings.Split(words[8], ":")
 	port, _ := strconv.Atoi(hostAndPort[1])
 	return port, nil
 }
