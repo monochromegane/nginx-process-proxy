@@ -54,6 +54,13 @@ map $http_upgrade $proxy_connection {
 
 gzip_types text/plain text/css application/javascript application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
+log_format vhost '$host $remote_addr - $remote_user [$time_local] '
+                 '"$request" $status $body_bytes_sent '
+                 '"$http_referer" "$http_user_agent"';
+
+access_log /var/log/nginx/access.log vhost;
+error_log  /var/log/nginx/error.log;
+
 proxy_http_version 1.1;
 proxy_buffering off;
 proxy_set_header Host $http_host;
