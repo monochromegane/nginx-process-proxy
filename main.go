@@ -10,15 +10,15 @@ var serverName string
 var process int
 var dest string
 var start string
-var notify string
+var reload string
 
 func init() {
-	flag.StringVar(&service, "service", "", "service name")
 	flag.StringVar(&serverName, "server-name", "", "server name")
+	flag.StringVar(&service, "service", "", "service name")
+	flag.StringVar(&start, "start", "", "start service command")
+	flag.StringVar(&dest, "dest", "", "nginx config path")
+	flag.StringVar(&reload, "reload", "", "nginx reload command")
 	flag.IntVar(&process, "process", 1, "process number")
-	flag.StringVar(&dest, "dest", "", "output file path")
-	flag.StringVar(&start, "start", "", "start command")
-	flag.StringVar(&notify, "notify", "", "notify command")
 	flag.Parse()
 }
 
@@ -30,9 +30,9 @@ func main() {
 		process: process,
 		dest:    dest,
 		start:   start,
-		notify:  notify,
+		notify:  reload,
 	}
-	err := proxy.genAndNotify()
+	err := proxy.reload()
 	if err != nil {
 		fmt.Printf("%v\n", err)
 	}

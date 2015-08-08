@@ -15,14 +15,14 @@ type proxy struct {
 	notify  string
 }
 
-func (p proxy) genAndNotify() error {
-	// generate nginx config
+func (p proxy) reload() error {
 	s, err := newService(p.server, p.service, p.process)
 	if err != nil {
 		return err
 	}
-	conf := nginxConf{s}
-	err = conf.generate(dest)
+
+	// generate nginx config
+	err = nginxConf{s}.generate(dest)
 	if err != nil {
 		return err
 	}
