@@ -38,6 +38,22 @@ func (n nginxConf) out() ([]byte, error) {
 
 func (n nginxConf) template() string {
 	return `
+# If we receive X-Forwarded-Proto, pass it through; otherwise, pass along the
+# scheme used to connect to this server
+map $http_x_forwarded_proto $proxy_x_forwarded_proto {
+  default $http_x_forwarded_proto;
+  ''      $scheme;
+}
+
+# If we receive Upgrade, set Connection to "upgrade"; otherwise, delete any
+# Connection header that may have been passed to this server
+map $http_upgrade $proxy_connection {
+  default upgrade;
+  '' close;
+}
+
+gzip_types text/plain text/css application/javascript application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+
 proxy_http_version 1.1;
 proxy_buffering off;
 proxy_set_header Host $http_host;
@@ -63,9 +79,9 @@ upstream {{.Name}} {
 }
 
 server {
-	server_name {{.Server}}
+	server_name {{.Server}};
 	location / {
-		proxy_pass http://{{.Name}}
+		proxy_pass http://{{.Name}};
 	}
 }
 `
