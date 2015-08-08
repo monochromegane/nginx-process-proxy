@@ -71,7 +71,7 @@ server {
 
 upstream {{.Name}} {
 {{range .OldProcs}}
-	server localhost:{{.Port}} weight=0;
+	server localhost:{{.Port}} down;
 {{end}}
 {{range .NewProcs}}
 	server localhost:{{.Port}};

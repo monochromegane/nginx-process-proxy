@@ -44,7 +44,7 @@ func TestOut(t *testing.T) {
 		t.Errorf("error should be nil, but %v", err)
 	}
 
-	expect := "server localhost:8000 weight=0;"
+	expect := "server localhost:8000 down;"
 	if !strings.Contains(string(out), expect) {
 		t.Errorf("upstream should contain %s, but not", expect)
 	}
