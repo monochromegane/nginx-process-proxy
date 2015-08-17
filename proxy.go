@@ -11,12 +11,13 @@ type proxy struct {
 	service string
 	process int
 	dest    string
+	certDir string
 	start   string
 	notify  string
 }
 
 func (p proxy) reload() error {
-	s, err := newService(p.server, p.service, p.process)
+	s, err := newService(p.server, p.service, p.certDir, p.process)
 	if err != nil {
 		return err
 	}

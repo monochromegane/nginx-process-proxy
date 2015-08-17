@@ -13,12 +13,13 @@ import (
 type Service struct {
 	Server   string
 	Name     string
+	CertDir  string
 	OldProcs []*Proc
 	NewProcs []*Proc
 }
 
-func newService(server, name string, process int) (*Service, error) {
-	service := &Service{Server: server, Name: name}
+func newService(server, name, certDir string, process int) (*Service, error) {
+	service := &Service{Server: server, Name: name, CertDir: certDir}
 	procs, err := service.currentProcs()
 	if err != nil {
 		return nil, err
